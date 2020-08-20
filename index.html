@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node Server</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="p-5 container">
+      <div class="p-3 card" style="align-items: center; border: none;">
+        <img
+          class="card-img-top"
+          src="https://www.pinclipart.com/picdir/big/172-1722871_http-erledshipping-shipping-port-png-clipart.png"
+          style="width: 400px;"
+        />
+        <div class="card-body" style="align-items: center;"></div>
+        <h1 class="card-title">Welcome to Node Port 5000</h1>
+        <button id="button" class="btn btn-success">About the webmaster</button>
+
+        <!-- JSON object is displayed here-->
+        <div id="webmasterInfo" class="pt-5 text-center"></div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  const button = document.getElementById("button");
+  const table = document.getElementById("webmasterInfo");
+
+  button.addEventListener("click", (event) => {
+    button.disabled = true;
+    fetch("http://localhost:5000/webmaster")
+      .then((res) => res.json())
+      .then((data) => {
+        for (var i = 0; i < Object.values(data).length; i++) {
+          var row = `<p class="card-text">${Object.values(data)[i]}</p>`;
+          table.innerHTML += row;
+        }
+      });
+  });
+</script>
