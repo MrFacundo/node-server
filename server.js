@@ -34,18 +34,24 @@ const server = http.createServer((req, res) => {
       });
       break;
 
-    // Two different routes for each JSON object
+    // First url response
     case "/webmaster":
-      res.writeHead(200, { "Content-Type": "application/json" });
+      res.setHeader('Access-Control-Allow-Origin', 'null'); // workaround for fetch blocked by CORS policy
+      
+      // The json response could change depending on the user making the request. An authentication system 
+      // could check the logged-in user role and provide a different object as a url response
+
       if (user.role == 'user') {
         res.end(JSON.stringify(webmaster));
       } else if (user.role == 'admin') {
         res.end(JSON.stringify(webmasterDetails));
       }
       break;
+
+    // Second url response
     case "/webmasterDetails":
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(webmasterDetails));
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(webmasterDetails));
     default:
       res.writeHead(404);
       res.write("Route not defined");
@@ -53,13 +59,7 @@ const server = http.createServer((req, res) => {
   }
 });
 
-// The json response could also change depending on the user making the request.
-//  A simple authentication system could check the logged-in user role and
 
-server.listen(port, (error) => {
-  if (error) {
-    console.log("Something went wrong", error);
-  } else {
+server.listen(port, () => {
     console.log("Server is listening on port " + port);
-  }
 });

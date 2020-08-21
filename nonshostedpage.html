@@ -22,7 +22,28 @@
         />
         <div class="card-body" style="align-items: center;"></div>
         <h1 class="card-title">Welcome to Node Port 5000</h1>
+        <button id="button" class="mt-5 btn btn-info">About the webmaster</button>
+
+        <!-- JSON object is displayed here-->
+        <div id="webmasterInfo" class="pt-5 text-center"></div>
       </div>
     </div>
   </body>
 </html>
+
+<script>
+  const button = document.getElementById("button");
+  const table = document.getElementById("webmasterInfo");
+
+  button.addEventListener("click", (event) => {
+    button.disabled = true;
+    fetch("http://localhost:5000/webmaster") 
+      .then((res) => res.json())
+      .then((data) => {
+        for (var i = 0; i < Object.values(data).length; i++) {
+          var row = `<p class="card-text">${Object.values(data)[i]}</p>`;
+          table.innerHTML += row;
+        }
+      });
+  });
+</script>
