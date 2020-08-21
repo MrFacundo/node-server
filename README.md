@@ -2,9 +2,9 @@
 
 Create a node webserver
 
-  it should serve port 5000 [X] 
-  it should include a simple html page, showing some text and a picture [X] 
-  it should answer requests containing at least two different keywords with two distinct json objects [X] 
+  it should serve port 5000
+  it should include a simple html page, showing some text and a picture
+  it should answer requests containing at least two different keywords with two distinct json objects
 
 Create a separate html page that connects to the server
 
